@@ -21,7 +21,7 @@ deviceinfo_arch="aarch64"
 
 # Kernel: fork of the sm8250 tree that already carries Ubuntu Touch patches for
 # this family (gts7xl bring-up, June 2026). Change to YOUR fork before building.
-deviceinfo_kernel_source="https://github.com/BUP-BIP-BOP/kernel_samsung_sm8250"
+deviceinfo_kernel_source="https://github.com/Azimkin/kernel_samsung_sm8250"
 deviceinfo_kernel_source_branch="ubuntu-touch"
 
 # Fragment order matters: merge_config is last-wins and halium.config must win
@@ -48,10 +48,13 @@ deviceinfo_kernel_cmdline="console=tty0 androidboot.hardware=qcom androidboot.me
 
 # Boot image — device launched with Android 10 => header v2 (LineageOS BoardConfig).
 deviceinfo_bootimg_header_version="2"
-# Read out of the stock Android 13 boot.img (T875XXS5DXD1). Samsung never bumped
-# the os_version field: even the Android 13 firmware still declares 11.0.0.
+# Read out of the stock Android 13 boot.img. Samsung never bumped the os_version
+# field: even the Android 13 firmware still declares 11.0.0.
+# os_patch_level must not be older than the installed firmware's: T875XXS5DXD1
+# carries 2024-04, T875XXS8DXH1 (binary 8, the last release) carries 2024-08.
+# Offsets and cmdline are identical between S5 and S8.
 deviceinfo_bootimg_os_version="11.0.0"
-deviceinfo_bootimg_os_patch_level="2024-04"
+deviceinfo_bootimg_os_patch_level="2024-08"
 deviceinfo_bootimg_partition_size="71303168"
 deviceinfo_bootimg_tailtype="SEAndroid"
 
