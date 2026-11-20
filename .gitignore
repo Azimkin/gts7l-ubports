@@ -13,3 +13,4 @@ device-facts.txt
 *.tar.md5
 .DS_Store
 /logs/
+!/prebuilt/*.img
