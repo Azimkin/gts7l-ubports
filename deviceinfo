@@ -79,6 +79,19 @@ deviceinfo_dtb="vendor/qcom/kona.dtb vendor/qcom/kona-v2.dtb vendor/qcom/kona-v2
 deviceinfo_dtbo="samsung/gts7l/kona-sec-gts7l-eur-overlay-r00.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r01.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r02.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r03.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r04.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r05.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r06.dtbo samsung/gts7l/kona-sec-gts7l-eur-overlay-r07.dtbo"
 deviceinfo_kernel_apply_overlay="false"
 
+# Use the DTB and DTBO from the stock firmware instead of the ones built from
+# the kernel tree. The tree's kona-v2.1 reserved-memory map does not match what
+# the T875XXS8DXH1 bootloader/TrustZone set up: every PIL carve-out (adsp, cdsp,
+# slpi, npu, video, cvp, camera, gpu, ipa, wlan, spss) sits at 0x862..0x8c0
+# in stock and at 0x8d3..0x90a in the built DTB, and removed_region and the
+# qseecom pools differ in size. With the built DTB the kernel treats
+# TZ-protected memory as RAM and dies before display or USB come up (stuck on
+# the "not running Samsung's official software" splash).
+# Extracted from backup/boot.img and backup/dtbo.img of T875XXS8DXH1; replace
+# both together if the firmware changes.
+deviceinfo_bootimg_prebuilt_dtb="prebuilt/dtb-T875XXS8DXH1.img"
+deviceinfo_prebuilt_dtbo="prebuilt/dtbo-T875XXS8DXH1.img"
+
 # Build the UBports unified recovery from this same kernel, so the port does not
 # depend on a TWRP image built for the Wi-Fi variant. 2560x1600 @ 320dpi -> xhdpi.
 deviceinfo_has_recovery_partition="true"
